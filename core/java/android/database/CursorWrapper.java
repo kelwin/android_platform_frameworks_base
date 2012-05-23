@@ -32,7 +32,7 @@ import dalvik.system.Taint;
  */
 
 public class CursorWrapper implements Cursor {
-
+    
     public CursorWrapper(Cursor cursor) {
         mCursor = cursor;
     }
@@ -143,8 +143,7 @@ public class CursorWrapper implements Cursor {
     }
 
     public String getString(int columnIndex) {
-        String retString = mCursor.getString(columnIndex);
-
+        String retString = mCursor.getString(columnIndex);  
 		// begin WITH_TAINT_TRACKING
         if(taint_ != Taint.TAINT_CLEAR)
         {

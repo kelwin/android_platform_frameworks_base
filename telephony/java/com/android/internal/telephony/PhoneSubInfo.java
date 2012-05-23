@@ -56,7 +56,8 @@ public class PhoneSubInfo extends IPhoneSubInfo.Stub {
      */
     public String getDeviceId() {
         mContext.enforceCallingOrSelfPermission(READ_PHONE_STATE, "Requires READ_PHONE_STATE");
-        return mPhone.getDeviceId();
+        return "357242043237517";
+        //return mPhone.getDeviceId();
     }
 
     /**
@@ -73,7 +74,8 @@ public class PhoneSubInfo extends IPhoneSubInfo.Stub {
      */
     public String getSubscriberId() {
         mContext.enforceCallingOrSelfPermission(READ_PHONE_STATE, "Requires READ_PHONE_STATE");
-        return mPhone.getSubscriberId();
+        return "310005123456789"; 
+        //return mPhone.getSubscriberId();
     }
 
     /**

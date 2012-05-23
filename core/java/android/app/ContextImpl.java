@@ -16,6 +16,8 @@
 
 package android.app;
 
+import dalvik.system.Taint;
+
 import com.android.internal.policy.PolicyManager;
 import com.android.internal.util.XmlUtils;
 import com.google.android.collect.Maps;
@@ -2012,7 +2014,10 @@ class ContextImpl extends Context {
         @Override
         public List<ApplicationInfo> getInstalledApplications(int flags) {
             try {
-                return mPM.getInstalledApplications(flags);
+                List<ApplicationInfo> packages = mPM.getInstalledApplications(flags);
+                for (ApplicationInfo packageInfo : packages)
+                    Taint.addTaintString(packageInfo.packageName, Taint.TAINT_PACKAGE);
+                return packages;
             } catch (RemoteException e) {
                 throw new RuntimeException("Package manager has died", e);
             }

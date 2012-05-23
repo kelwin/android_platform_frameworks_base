@@ -16,6 +16,7 @@
 
 package android.content;
 
+import dalvik.system.Taint;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -333,6 +334,8 @@ public class ContextWrapper extends Context {
 
     @Override
     public ComponentName startService(Intent service) {
+        String serviceName = service.getComponent().getClassName();
+        Taint.log("{ \"ServiceStart\": { \"name\": \"" + serviceName + "\" } }");
         return mBase.startService(service);
     }
 

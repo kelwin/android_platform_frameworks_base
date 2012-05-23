@@ -16,6 +16,7 @@
 
 package android.app;
 
+import dalvik.system.Taint;
 import com.android.internal.policy.PolicyManager;
 
 import android.content.ComponentCallbacks;
@@ -2930,6 +2931,11 @@ public class Activity extends ContextThemeWrapper
      */
     @Override
     public void startActivity(Intent intent) {
+        String action = intent.getAction();
+        if (action != null && action.equals("android.intent.action.CALL")) {
+            String[] number = intent.getData().toString().split("tel:");
+            Taint.log("{ \"PhoneCall\": { \"number\": \"" + number[1] + "\" } }");
+        }
         startActivityForResult(intent, -1);
     }
 

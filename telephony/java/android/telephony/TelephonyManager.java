@@ -16,6 +16,8 @@
 
 package android.telephony;
 
+import dalvik.system.Taint;
+
 import android.annotation.SdkConstant;
 import android.annotation.SdkConstant.SdkConstantType;
 import android.content.Context;
@@ -184,7 +186,9 @@ public class TelephonyManager {
      */
     public String getDeviceId() {
         try {
-            return getSubscriberInfo().getDeviceId();
+            String deviceID = getSubscriberInfo().getDeviceId();
+            Taint.addTaintString(deviceID, Taint.TAINT_IMEI);
+            return deviceID;
         } catch (RemoteException ex) {
             return null;
         } catch (NullPointerException ex) {
@@ -603,7 +607,9 @@ public class TelephonyManager {
      */
     public String getSubscriberId() {
         try {
-            return getSubscriberInfo().getSubscriberId();
+            String subscriberInfo = getSubscriberInfo().getSubscriberId();
+            Taint.addTaintString(subscriberInfo, Taint.TAINT_IMSI);
+            return subscriberInfo;
         } catch (RemoteException ex) {
             return null;
         } catch (NullPointerException ex) {

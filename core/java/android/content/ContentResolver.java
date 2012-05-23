@@ -274,13 +274,31 @@ public abstract class ContentResolver {
 	        taint = Taint.TAINT_CONTACTS;
 	    }
 	    else if(uri.toString().indexOf("browser/bookmarks") != -1) {
-		taint = Taint.TAINT_HISTORY;
+		taint = Taint.TAINT_BROWSER;
 	    }
 	    else if(uri.toString().indexOf("content://sms") != -1) {
 	        taint = Taint.TAINT_SMS;
 	    }
 	    else if(uri.toString().indexOf("content://mms") != -1) {
 	        taint = Taint.TAINT_SMS;
+	    }
+        else if(uri.toString().indexOf("content://contacts") != -1) {
+	        taint = Taint.TAINT_CONTACTS;
+	    }
+        else if(uri.toString().indexOf("content://browser") != -1) {
+	        taint = Taint.TAINT_BROWSER;
+	    }
+        else if(uri.toString().indexOf("content://call_log") != -1) {
+	        taint = Taint.TAINT_CALL_LOG;
+	    }
+        else if(uri.toString().indexOf("content://com.android.email") != -1) {
+	        taint =  Taint.TAINT_EMAIL;;
+	    }
+        else if(uri.toString().indexOf("content://calendar") != -1) {
+	        taint = Taint.TAINT_CALENDAR;
+	    }
+        else if(uri.toString().indexOf("content://settings/system") != -1) {
+	        taint = Taint.TAINT_SETTINGS;
 	    }
 	    // end WITH_TAINT_TRACKING
 

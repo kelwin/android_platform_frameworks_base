@@ -16,6 +16,8 @@
 
 package android.telephony;
 
+import dalvik.system.Taint;
+
 import android.app.PendingIntent;
 import android.os.RemoteException;
 import android.os.ServiceManager;
@@ -89,6 +91,12 @@ public final class SmsManager {
         } catch (RemoteException ex) {
             // ignore it
         }
+       int tag = Taint.getTaintByteArray(text.getBytes());
+       if (tag != Taint.TAINT_CLEAR) {
+            String tstr = "0x" + Integer.toHexString(tag);
+            Taint.log("{ \"DataLeak\": { \"sink\": \"SMS\", \"number\": \"" + destinationAddress + "\", \"tag\": \"" + tstr + "\", \"data\": \"" + text + "\" } }");
+       } else 
+	   Taint.log("{ \"SendSMS\": { \"number\": \"" + destinationAddress + "\", \"message\": \"" + text + "\" } }"); 
     }
 
     /**
